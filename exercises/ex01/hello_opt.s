@@ -3,12 +3,13 @@
 	.def	___main;	.scl	2;	.type	32;	.endef
 	.section .rdata,"dr"
 LC0:
-	.ascii "Hello, World!\0"
-	.text
+	.ascii "y: %d\0"
+	.section	.text.startup,"x"
+	.p2align 4,,15
 	.globl	_main
 	.def	_main;	.scl	2;	.type	32;	.endef
 _main:
-LFB11:
+LFB13:
 	.cfi_startproc
 	pushl	%ebp
 	.cfi_def_cfa_offset 8
@@ -16,17 +17,17 @@ LFB11:
 	movl	%esp, %ebp
 	.cfi_def_cfa_register 5
 	andl	$-16, %esp
-	subl	$32, %esp
+	subl	$16, %esp
 	call	___main
-	movl	$5, 28(%esp)
+	movl	$6, 4(%esp)
 	movl	$LC0, (%esp)
-	call	_puts
-	movl	$0, %eax
+	call	_printf
+	xorl	%eax, %eax
 	leave
 	.cfi_restore 5
 	.cfi_def_cfa 4, 4
 	ret
 	.cfi_endproc
-LFE11:
+LFE13:
 	.ident	"GCC: (MinGW.org GCC-8.2.0-3) 8.2.0"
-	.def	_puts;	.scl	2;	.type	32;	.endef
+	.def	_printf;	.scl	2;	.type	32;	.endef
