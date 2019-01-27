@@ -50,7 +50,8 @@
     ---
     +       xorl    %eax, %eax
 
-
+    In summary, the optimized version of hello.c didn't store x, and performed the addition
+    operation at a lower level. 
 */
 int main() {
     int x = 5;
