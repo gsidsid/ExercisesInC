@@ -34,7 +34,11 @@ returns: string
 */
 char *reverse_string(char *s) {
     //TODO: Fill this in.
-    return strrev(s);
+    char *revs = malloc(128);
+    for (int i = 0; i < strlen(s); i++) {
+        revs[strlen(s)-i-1] = s[i];
+    }
+    return revs;
 }
 
 /* ctoi: Converts a character to integer.
