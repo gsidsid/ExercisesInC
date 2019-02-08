@@ -17,6 +17,12 @@
 int get_input = 1;
 int scanf_flag;
 
+/*
+ * Checks to see if every value in the input is
+ * within the correct size and numeric
+ *
+ * returns 1 if it's safe, and 0 if it's not
+ */
 int validate_input(char input[INPUT_BUFFER_SIZE])
 {
     if (scanf_flag == EOF) {
@@ -41,6 +47,12 @@ int validate_input(char input[INPUT_BUFFER_SIZE])
     return 1;
 }
 
+/*
+ * Prompts the user to enter a new number
+ *
+ * returns the input number if it's safe,
+ * and 0 if it's not
+ */
 int next_number() 
 {
     char input[INPUT_BUFFER_SIZE];

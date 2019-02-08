@@ -43,21 +43,22 @@ void find_track_regex(char pattern[])
     int status;
     regex_t re;
     
-    if (regcomp(&re, pattern, REG_EXTENDED|REG_NOSUB) != 0) {
+    if (regcomp(&re, pattern, REG_EXTENDED) != 0) {
     	puts("Invalid regex pattern");
-	exit(1);
+        exit(1);
     }
 
+    regmatch_t m[10];
     for (i=0; i <NUM_TRACKS; i++) {
-	char *track_string = tracks[i];
-    	status = regexec(&re, track_string, (size_t) 0, NULL, 0);
-	regfree(&re);
-	if (status == 1) {
-	    printf("%s\n", track_string);
-	} else if (status != 0) {
-	    puts("sad");
-	}
+        char *track_string = tracks[i];
+        status = regexec(&re, track_string, 10, m, 0);
+    	if (status == 1) {
+    	    printf("Track %i: '%s'\n", i, tracks[i]);
+    	} else if (status != 0) {
+    	    puts("sad");
+    	}
     }
+    regfree(&re);
 }
 
 // Truncates the string at the first newline, if there is one.
