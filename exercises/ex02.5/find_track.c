@@ -52,10 +52,10 @@ void find_track_regex(char pattern[])
     for (i=0; i <NUM_TRACKS; i++) {
         char *track_string = tracks[i];
         status = regexec(&re, track_string, 10, m, 0);
-    	if (status == 1) {
+    	if (status == 0) {
     	    printf("Track %i: '%s'\n", i, tracks[i]);
-    	} else if (status != 0) {
-    	    puts("sad");
+    	} else if (status != 1) {
+    	    puts("There was an error processing your query.");
     	}
     }
     regfree(&re);
