@@ -27,8 +27,8 @@ returns: 1 if true, 0 otherwise
 */
 int endswith(char *s, char *suffix)
 {
-    // TODO: Fill this in!
-    return 0;
+    char *itx=s+strlen(s)-strlen(suffix);
+    return !strcmp(itx,suffix);
 }
 
 
@@ -48,6 +48,7 @@ int main (int argc, char *argv[])
 
     // what's the right answer?
     // test_endswith("endswith", "", ?);
-
+    // 1?
+    
     printf("All tests passed\n");
 }
