@@ -49,6 +49,6 @@ int main (int argc, char *argv[])
     // what's the right answer?
     // test_endswith("endswith", "", ?);
     // 1?
-    
+
     printf("All tests passed\n");
 }
