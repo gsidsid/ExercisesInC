@@ -52,18 +52,40 @@ double time_func(int iters, float(*func)())
     return t1 - t0;
 }
 
+/* Compute the total time used by a function.
 
-main(int argc, char *argv[])
+iters: number of times to call the function
+func: function to call
+*/
+double time_func_double(int iters, float(*func)())
+{
+    int i;
+    float f;
+    double t0, t1;
+
+    srandom(time(NULL));
+
+    t0 = get_seconds();
+    for (i=0; i<iters; i++) {
+        f = func();
+    }
+    t1 = get_seconds();
+    return t1 - t0;
+}
+
+
+
+int main(int argc, char *argv[])
 {
     double time;
     int iters = 100000000;
     int seed = 17;
 
-    time = time_func(iters, dummy);
-    printf("%f ms \t dummy\n", time);
+    time = time_func_double(iters, random_double);
+    printf("%f ms \t random_double\n", time);
 
-    time = time_func(iters, dummy2);
-    printf("%f ms \t dummy2\n", time);
+    time = time_func_double(iters, my_random_double);
+    printf("%f ms \t my_random_double\n", time);
 
     time = time_func(iters, random_float);
     printf("%f ms \t random_float\n", time);
