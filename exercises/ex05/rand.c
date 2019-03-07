@@ -38,8 +38,7 @@ float my_random_float()
     return b.f;
 }
 
-// alternative implementation of my algorithm that doesn't use
-// embedded assembly
+// compute a randome double using my algorithm
 double my_random_double()
 {
     int x;
@@ -77,7 +76,8 @@ double my_random_double()
     return b.d;
 }
 
-// compute a random double using my algorithm
+// alternative implementation of my algorithm that doesn't use
+// embedded assembly
 float my_random_float2()
 {
     // TODO: fill this in
