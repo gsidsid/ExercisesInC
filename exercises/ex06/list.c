@@ -66,6 +66,8 @@ int pop(Node **list) {
 */
 void push(Node **list, int val) {
     // FILL THIS IN!
+   Node *to_add = make_node(val, *list);
+   *list = to_add;
 }
 
 
@@ -80,7 +82,18 @@ void push(Node **list, int val) {
 */
 int remove_by_value(Node **list, int val) {
     // FILL THIS IN!
-    return 0;
+    Node *curr;
+    curr = *list;
+    if (curr->next == NULL) {
+	free(curr->next);
+	return 0;
+    } else if (curr->next->val == val) {
+        curr->next = curr->next->next;
+	return 1;
+    } else {
+	curr = curr->next;
+	remove_by_value(&curr, val);
+    }
 }
 
 
@@ -92,6 +105,7 @@ int remove_by_value(Node **list, int val) {
 */
 void reverse(Node **list) {
     // FILL THIS IN!
+        
 }
 
 
