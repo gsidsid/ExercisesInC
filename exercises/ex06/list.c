@@ -55,7 +55,13 @@ void print_list(Node **list) {
 */
 int pop(Node **list) {
     // FILL THIS IN!
-    return 0;
+    Node *topop = *list;
+    if (topop == NULL) {
+    	return -1;
+    } else {
+	int t = topop->val;
+	return t;
+    }
 }
 
 
@@ -105,7 +111,18 @@ int remove_by_value(Node **list, int val) {
 */
 void reverse(Node **list) {
     // FILL THIS IN!
-        
+    Node *curr = *list;
+    Node *prev = NULL;
+    Node *next;
+
+    while (curr != NULL) {
+	next = curr->next;
+	curr->next = prev;
+	prev = curr;
+	curr = next; 
+    } 
+
+    *list = prev;
 }
 
 
