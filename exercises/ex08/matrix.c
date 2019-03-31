@@ -31,6 +31,10 @@ Matrix *make_matrix(int num_rows, int num_cols) {
 */
 void free_matrix(Matrix *matrix) {
     // TODO: Fill this in.
+    free(*matrix->rows);
+    free(*matrix->num_cols);
+    free(matrix->num_rows);
+    free(matrix);
 }
 
 /* Print a row of a matrix.
