@@ -19,6 +19,24 @@ License: MIT License https://opensource.org/licenses/MIT
 // error information
 extern int errno;
 
+/*
+
+    The intent of the below variables is to keep
+    track of the global, stack, and heap 
+    variables through child processes by
+    incrementing them in each subsequent
+    process. This failed.
+
+    Each child in the output does however output
+    the values initialized below + 1, as each
+    process increments the values by 1.
+
+*/
+
+volatile int GLOBAL_0 = 1;
+volatile int STACK_0 = 2;
+volatile int HEAP_0 = 4;
+
 
 // get_seconds returns the number of seconds since the
 // beginning of the day, with microsecond precision
@@ -30,10 +48,15 @@ double get_seconds() {
 }
 
 
-void child_code(int i)
+void child_code(int i, int *stack, int *heap)
 {
     sleep(i);
     printf("Hello from child %d.\n", i);
+    (*stack)++;
+    (*heap)++;
+    GLOBAL_0++;
+    printf("child %d has global, stack, and heap values of %d, %d, and %d\n", i,
+	GLOBAL_0, *stack, *heap);
 }
 
 // main takes two parameters: argc is the number of command-line
@@ -45,6 +68,9 @@ int main(int argc, char *argv[])
     pid_t pid;
     double start, stop;
     int i, num_children;
+    int stack = STACK_0;
+    int *heap = malloc(sizeof(int));
+    *heap = HEAP_0;
 
     // the first command-line argument is the name of the executable.
     // if there is a second, it is the number of children to create.
@@ -72,7 +98,7 @@ int main(int argc, char *argv[])
 
         /* see if we're the parent or the child */
         if (pid == 0) {
-            child_code(i);
+            child_code(i, &stack, heap);
             exit(i);
         }
     }
@@ -93,6 +119,8 @@ int main(int argc, char *argv[])
         status = WEXITSTATUS(status);
         printf("Child %d exited with error code %d.\n", pid, status);
     }
+    
+    printf("stack: %d\nheap: %d\nglobal: %d\n", stack, *heap, GLOBAL_0);
     // compute the elapsed time
     stop = get_seconds();
     printf("Elapsed time = %f seconds.\n", stop - start);
